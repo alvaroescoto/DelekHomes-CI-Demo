@@ -46,7 +46,7 @@ https://github.com/alvaroescoto/DelekHomes-CI-Demo/blob/main/DelekHomes-API-Coll
 
 ### 🚨 1. Clone the Repository
 ```bash
-git clone git@github.com:alvaroescoto/DelekHomes-CI-Demo.git (SSH)
+git clone git@github.com:alvaroescoto/DelekHomes-CI-Demo.git
 cd DelekHomes-CI-Demo
 
 
