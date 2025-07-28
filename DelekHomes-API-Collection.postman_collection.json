@@ -1,0 +1,585 @@
+{
+	"info": {
+		"_postman_id": "9fad6a3f-7853-468b-a777-4bec70c74e7a",
+		"name": "DELEKHOMES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38100528"
+	},
+	"item": [
+		{
+			"name": "DelekHomes Automation",
+			"item": [
+				{
+					"name": "Positive Scenarios",
+					"item": [
+						{
+							"name": "registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save userId\", function () {\r",
+											"  const json = pm.response.json();\r",
+											"  pm.environment.set(\"userId\", json.user.id.toString());\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"  pm.response.to.have.status(201)\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"DeleteMe\",\n  \"user_surname\": \"TestUser\",\n  \"email\": \"delete@example.com\",\n  \"password\": \"Test1234!\"\n}\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/registration",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save token\", function () {",
+											"  const json = pm.response.json();",
+											"  pm.expect(json).to.have.property(\"accessToken\");",
+											"",
+											"  pm.environment.set(\"token\", json.accessToken);",
+											"});",
+											"",
+											"pm.test(\"Status code is 201\", function () {",
+											"  pm.response.to.have.status(201)",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"admin@gmail.com\",\n  \"password\": \"DontTestMe\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetMe",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjM2MywidXNlcm5hbWUiOiJBZG1pbiIsInVzZXJfc3VybmFtZSI6IkFkbWluZW5rbyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNzUzNjc5NjI4LCJleHAiOjE3NTYyNzE2Mjh9.Gg5wzp2D9djNDYuPi0oyXAaau_iAEPXdfbFMc2jSVxc",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/users/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Updates",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{userId}},\r\n  \"username\": \"UpdatedName\",\r\n  \"user_surname\": \"UpdatedSurname\",\r\n  \"email\": \"deleteme@example.com\",\r\n  \"bio\": \"Updated bio\",\r\n  \"avatarUrl\": \"string\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"address\": \"Updated Address\",\r\n  \"country\": \"Testland\",\r\n  \"stateOrRegion\": \"TestState\",\r\n  \"city\": \"TestCity\",\r\n  \"zipCode\": \"12345\",\r\n  \"about\": \"Updated info\",\r\n  \"isPublic\": true,\r\n  \"isRealtor\": false,\r\n  \"user_role\": [\r\n    {\r\n      \"id\": 2,\r\n      \"description\": \"User\",\r\n      \"type\": \"user\"\r\n    }\r\n  ],\r\n  \"realtorLicense\": null\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"User successfully deleted\", function () {\r",
+											"  pm.response.to.have.status(200)\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": {{userId}}\r\n}"
+								},
+								"url": {
+									"raw": "https://qa.delekhomes.com/api/users/{{userId}}\n",
+									"protocol": "https",
+									"host": [
+										"qa",
+										"delekhomes",
+										"com"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{userId}}\n"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative scenarios",
+					"item": [
+						{
+							"name": "registration nagative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should fail - Missing email\", function () {\r",
+											"  pm.response.to.have.status(400);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"NoEmailUser\",\n  \"user_surname\": \"MissingEmail\",\n  \"password\": \"123456\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/registration",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginUser negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should fail - Invalid credentials\", function () {",
+											"  pm.response.to.have.status(403);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"admin@gmail.com\",\n  \"password\": \"WrongPassword\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetMe negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should fail - Missing token\", function () {\r",
+											"  pm.response.to.have.status(401);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/users/me",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Updates negative",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should fail - No permission\", function () {\r",
+											"  pm.response.to.have.status(401);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{userId}},\r\n  \"username\": \"UpdatedName\",\r\n  \"user_surname\": \"UpdatedSurname\",\r\n  \"email\": \"deleteme@example.com\",\r\n  \"bio\": \"Updated bio\",\r\n  \"avatarUrl\": \"string\",\r\n  \"phoneNumber\": \"123456789\",\r\n  \"address\": \"Updated Address\",\r\n  \"country\": \"Testland\",\r\n  \"stateOrRegion\": \"TestState\",\r\n  \"city\": \"TestCity\",\r\n  \"zipCode\": \"12345\",\r\n  \"about\": \"Updated info\",\r\n  \"isPublic\": true,\r\n  \"isRealtor\": false,\r\n  \"user_role\": [\r\n    {\r\n      \"id\": 2,\r\n      \"description\": \"User\",\r\n      \"type\": \"user\"\r\n    }\r\n  ],\r\n  \"realtorLicense\": null\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/{{userId}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete negative",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Should fail - User not found\", function () {\r",
+											"  pm.response.to.have.status(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 999999\r\n}"
+								},
+								"url": {
+									"raw": "https://qa.delekhomes.com/api/users/{{userId}}\n",
+									"protocol": "https",
+									"host": [
+										"qa",
+										"delekhomes",
+										"com"
+									],
+									"path": [
+										"api",
+										"users",
+										"{{userId}}\n"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
