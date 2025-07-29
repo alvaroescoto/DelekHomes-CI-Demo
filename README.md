@@ -1,19 +1,19 @@
-# Delek Homes – Test Automation Project
+# QA Engineer Challenge – REM Waste
 
-Welcome to my personal test automation project based on a real-world application from **Delek Homes**. This repository showcases my skills in both **UI** and **API** automated testing using modern tools and best practices.
+Welcome to my solution for the QA Engineer (Automation Specialist) challenge from REM Waste. This project is based on the task provided in the evaluation email and demonstrates my ability to design and implement automated tests for a full-stack application.
 
 ---
 
-## Project Overview
+## Objetive
 
-This project simulates automated tests for an end-to-end real estate platform, covering key user flows and backend validations. It demonstrates the full QA workflow from setup to execution and reporting.
+Design and implement automated tests for a small web application consisting of a React frontend and a Node.js backend API. The application under test simulates a real estate listing platform.
 
 ---
 
 ## Tech Stack
 
 - **Language:** JavaScript
-- **Test Runner:** [Cypress](https://www.cypress.io/)
+- **Test Runner:** [Cypress]
 - **IDE:** VSCode
 - **API Testing:** Cypress + Postman (manual validation)
 - **Documentation:** Swagger
@@ -21,19 +21,26 @@ This project simulates automated tests for an end-to-end real estate platform, c
 
 ---
 
-## What’s Covered
+## Covered Requirements
 
-### 🔹 UI Tests
-- User login / registration
-- Property listing creation
+### 🔹 UI Automation (Cypress)
+- [x] Login with valid/invalid credentials
+- [x] Create a new item (registration and listing)
+- [x] Edit an existing item
+- [x] Delete an item (new user and new listing)
+- [x] Assert expected data after actions
 
-### 🔹 API Tests
+### 🔹 API Test Automation (Postman)
 https://github.com/alvaroescoto/DelekHomes-CI-Demo/blob/main/DelekHomes-API-Collection.postman_collection.json
 
-- Auth endpoints
-- CRUD operations on listings
-- User profile updates
-- Data validations against DB
+- [x] POST /login
+- [x] GET /items
+- [x] POST /items
+- [x] PUT /items/:id
+- [x] DELETE /items/:id
+
+### 🔹 CI/CD
+- [x] GitHub Actions to run tests on every push
 
 ---
 
